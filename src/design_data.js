@@ -25,4 +25,20 @@ const fieldsForNewTodoForm = [
   },
 ];
 
-export { fieldsForNewTodoForm };
+const fieldsForNewProjectForm = [
+  {
+    field: 'name',
+    text: 'Name: ',
+    type: 'text',
+    required: 'true',
+  },
+  {
+    field: 'description',
+    text: 'Description: ',
+    type: 'text',
+    required: 'true',
+  },
+];
+
+
+export { fieldsForNewProjectForm, fieldsForNewTodoForm };

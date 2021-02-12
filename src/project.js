@@ -1,6 +1,6 @@
 import todo from './todo';
 
-const project = (save, name, todos) => {
+const project = (save, name, description, todos) => {
   const addTodo = (elements) => {
     if (elements != null) {
       const t = todo(elements.title.value, elements.description.value, elements.date.value,
@@ -22,13 +22,8 @@ const project = (save, name, todos) => {
   };
 };
 
-const emptyProjectObj = (_name) => ({
-  name: _name,
-  todos: [],
-});
-
 const projectFactory = (save, obj) => {
-  return project(save, obj.name, obj.todos);
+  return project(save, obj.name, obj.description, obj.todos);
 };
 
-export { projectFactory, emptyProjectObj };
+export { projectFactory as default };
