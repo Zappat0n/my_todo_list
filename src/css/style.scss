@@ -1,3 +1,14 @@
 h1 {
-  color: blue;
+  text-align: center;
 }
+
+h2 {
+  text-align: center;
+}
+
+.container {
+  display: -ms-grid;
+  display: grid;
+  grid-template-columns: repeat(3, 30%);
+}
+

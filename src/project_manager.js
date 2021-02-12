@@ -7,7 +7,7 @@ const projectManager = () => {
 
   const getIndex = (name) => {
     for (let index = 0; index < projects.length; index += 1) {
-      if (name === projects.name) return index;
+      if (name === projects[index].obj.name) return index;
     }
     return -1;
   };
@@ -34,7 +34,11 @@ const projectManager = () => {
     return currentProject;
   };
 
-  return { getProject, save };
+  const getProjects = () => projects;
+
+  return {
+    getProject, currentProject, getProjects, save,
+  };
 };
 
 export { projectManager as default };

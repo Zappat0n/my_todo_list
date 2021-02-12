@@ -1,4 +1,17 @@
 const designer = () => {
+  const addElement = (container, type, _textContent, classes) => {
+    const element = document.createElement(type);
+    if (_textContent != null) {
+      element.textContent = _textContent;
+    }
+
+    if (classes != null) {
+      classes.forEach(value => element.classList.add(value));
+    }
+    container.appendChild(element);
+    return element;
+  };
+
   const createForm = (container, id, className, fields, callback) => {
     const addButton = () => {
       const button = document.createElement('input');
@@ -17,9 +30,9 @@ const designer = () => {
       input.setAttribute('type', type);
       input.setAttribute('name', field);
       input.setAttribute('id', field);
-      /*if (required) {
-        input.attr('required');
-      }*/
+      if (required) {
+        input.setAttribute('required', true);
+      }
       div.appendChild(label);
       div.appendChild(input);
       return div;
@@ -42,7 +55,18 @@ const designer = () => {
     return form;
   };
 
-  return { createForm };
+  const updateTodos = (currentProject) => {
+    const rightSide = document.querySelector('.todos');
+    rightSide.innerHTML = '';
+    const ulTodo = designer().addElement(rightSide, 'ul');
+    if (currentProject != null) {
+      currentProject.obj.obj.todos.forEach(value => {
+        addElement(ulTodo, 'li', value.title, ['todo']);
+      });
+    }
+  };
+
+  return { addElement, createForm, updateTodos };
 };
 
 export { designer as default };
