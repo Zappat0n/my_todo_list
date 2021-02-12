@@ -1,6 +1,11 @@
 import './css/style.scss';
+import designer from './designer';
+import { fieldsForNewTodoForm } from './design_data';
 
 const body = document.querySelector('body');
+
+designer().createForm(body, 'form_new_todo', 'form', fieldsForNewTodoForm);
+
 
 const element = document.createElement('div');
 
