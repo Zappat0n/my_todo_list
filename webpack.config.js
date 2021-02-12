@@ -8,12 +8,12 @@ module.exports = {
   mode: 'development',
   entry: './src/index.js',
   plugins: [
+    new HtmlWebpackPlugin({
+      title: 'My Todo List',
+    }),
     new MiniCssExtractPlugin({
       filename: isDevelopment ? '[name].css' : '[name].[contenthash].css',
       chunkFilename: isDevelopment ? '[id].css' : '[id].[contenthash].css',
-    }),
-    new HtmlWebpackPlugin({
-      title: 'My Todo List',
     }),
   ],
   output: {
@@ -30,19 +30,8 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: [
           isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              sourceMap: isDevelopment,
-            },
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: isDevelopment,
-            },
-          },
+          'css-loader',
+          'sass-loader',
         ],
       },
       {
