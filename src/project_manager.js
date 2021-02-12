@@ -1,4 +1,4 @@
-import { project, emptyProjectObj } from './project';
+import { projectFactory, emptyProjectObj } from './project';
 import storageManager from './storage';
 
 const projectManager = () => {
@@ -7,13 +7,15 @@ const projectManager = () => {
 
   const getIndex = (name) => {
     for (let index = 0; index < projects.length; index += 1) {
-      if (name === projects[index].obj.name) return index;
+      if (name === projects[index].name) return index;
     }
     return -1;
   };
 
   const save = () => {
     const index = getIndex(currentProject.name);
+    console.log(currentProject);
+    console.log(index);
     if (index === -1) {
       projects.push(currentProject);
     } else {
@@ -26,10 +28,10 @@ const projectManager = () => {
     currentProject = {};
     const index = getIndex(name);
     if (index !== -1) {
-      currentProject = project(save, projects[index]);
+      currentProject = projectFactory(save, projects[index]);
     } else {
       const p = emptyProjectObj('default');
-      currentProject = project(save, p);
+      currentProject = projectFactory(save, p);
     }
     return currentProject;
   };

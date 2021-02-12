@@ -12,7 +12,7 @@ const leftSide = designer().addElement(container, 'div', null, ['left_side']);
 designer().addElement(leftSide, 'h2', 'Projects');
 const ulProject = designer().addElement(leftSide, 'ul');
 projectManager().getProjects().forEach(project => {
-  const li = designer().addElement(ulProject, 'li', project.obj.name, ['project']);
+  const li = designer().addElement(ulProject, 'li', project.name, ['project']);
   li.addEventListener('click', (e) => {
     const currentProject = projectManager().getProject(e.target.textContent);
     designer().updateTodos(currentProject);
@@ -25,4 +25,3 @@ designer().createForm(rightSide, 'form_new_todo', 'form', fieldsForNewTodoForm, 
 
 designer().addElement(rightSide, 'div', null, ['todos']);
 designer().updateTodos(projectManager().getProject('default'));
-

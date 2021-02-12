@@ -60,7 +60,7 @@ const designer = () => {
     rightSide.innerHTML = '';
     const ulTodo = designer().addElement(rightSide, 'ul');
     if (currentProject != null) {
-      currentProject.obj.obj.todos.forEach(value => {
+      currentProject.todos.forEach(value => {
         addElement(ulTodo, 'li', value.title, ['todo']);
       });
     }
