@@ -1,21 +1,28 @@
 import todo from './todo';
 
-const project = () => {
-  const todos = [];
-
-  const addTodo = (title, description, dueDate, priority) => {
-    const t = todo(title, description, dueDate, priority);
-    todos.push(t);
-  };
-
-  const removeTodo = (title, description, dueDate, priority) => {
-    const index = todos.indexOf(todo(title, description, dueDate, priority));
-    if (index !== -1) {
-      todos.splice(index, 1);
+const project = (save, obj) => {
+  const addTodo = (elements) => {
+    if (elements != null) {
+      const t = todo(elements.title.value, elements.description.value, elements.date.value,
+        elements.priority.value);
+      obj.todos.push(t);
+      save();
     }
   };
 
-  return { addTodo, removeTodo };
+  const removeTodo = (title, description, dueDate, priority) => {
+    const index = obj.todos.indexOf(todo(title, description, dueDate, priority));
+    if (index !== -1) {
+      obj.todos.splice(index, 1);
+    }
+  };
+
+  return { obj, addTodo, removeTodo };
 };
 
-export { project as default };
+const emptyProjectObj = (_name) => ({
+  name: _name,
+  todos: [],
+});
+
+export { project, emptyProjectObj };

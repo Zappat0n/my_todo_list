@@ -18,21 +18,26 @@ const designer = () => {
       input.setAttribute('name', field);
       input.setAttribute('id', field);
       /*if (required) {
-        input.setAttribute('required');
+        input.attr('required');
       }*/
       div.appendChild(label);
       div.appendChild(input);
-      container.appendChild(div);
+      return div;
     };
 
     const form = document.createElement('form');
+    container.appendChild(form);
     form.setAttribute('id', id);
     form.classList.add(className);
     fields.forEach(element => {
-      addField(element.field, element.text, element.type, element.required);
+      const field = addField(element.field, element.text, element.type, element.required);
+      form.appendChild(field);
     });
-    container.appendChild(addButton());
-    form.addEventListener('submit', e => callback(e));
+    form.appendChild(addButton());
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      callback(e.target.elements);
+    });
 
     return form;
   };

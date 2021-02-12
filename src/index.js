@@ -1,10 +1,11 @@
 import './css/style.scss';
 import designer from './designer';
 import { fieldsForNewTodoForm } from './design_data';
+import projectManager from './project_manager';
 
 const body = document.querySelector('body');
-
-designer().createForm(body, 'form_new_todo', 'form', fieldsForNewTodoForm);
+const currentProject = projectManager().getProject('default');
+designer().createForm(body, 'form_new_todo', 'form', fieldsForNewTodoForm, currentProject.addTodo);
 
 
 const element = document.createElement('div');

@@ -12,7 +12,7 @@ const fieldsForNewTodoForm = [
     required: 'true',
   },
   {
-    field: 'due_date',
+    field: 'date',
     text: 'Due date: ',
     type: 'date',
     required: 'true',
