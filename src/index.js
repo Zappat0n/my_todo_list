@@ -1,7 +1,10 @@
 import './css/style.scss';
 import designer from './designer';
 import { fieldsForNewProjectForm, fieldsForNewTodoForm } from './design_data';
-import projectManager from './project_manager';
+import projectManagerFactory from './project_manager';
+
+
+const manager = projectManagerFactory();
 
 const body = document.querySelector('body');
 designer().addElement(body, 'h1', 'My Todo List');
@@ -10,21 +13,15 @@ const container = designer().addElement(body, 'div', null, ['container']);
 const leftSide = designer().addElement(container, 'div', null, ['left_side']);
 
 designer().addElement(leftSide, 'h2', 'Projects');
-designer().createForm(leftSide, 'form_new_project', 'form', fieldsForNewProjectForm, projectManager().addProject);
+designer().addElement(leftSide, 'h3', null, ['current_project']);
+designer(manager).createForm(leftSide, 'form_new_project', 'form', fieldsForNewProjectForm, manager.addProject);
 
-const ulProject = designer().addElement(leftSide, 'ul');
-projectManager().getProjects().forEach(project => {
-  const li = designer().addElement(ulProject, 'li', project.name, ['project']);
-  li.addEventListener('click', (e) => {
-    const currentProject = projectManager().getProject(e.target.textContent);
-    designer().updateTodos(currentProject);
-  });
-});
-
+designer().addElement(leftSide, 'ul', null, ['ul_projects']);
+designer().updateProjects(manager);
 
 const rightSide = designer().addElement(container, 'div', null, ['right_side']);
-const currentProject = projectManager().getProject('default');
-designer().createForm(rightSide, 'form_new_todo', 'form', fieldsForNewTodoForm, currentProject.addTodo);
+manager.getProject('default');
+designer().createForm(rightSide, 'form_new_todo', 'form', fieldsForNewTodoForm, manager.addTodo);
 
 designer().addElement(rightSide, 'div', null, ['todos']);
-designer().updateTodos(projectManager().getProject('default'));
+designer().updateTodos(manager.getProject('default'));

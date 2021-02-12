@@ -1,9 +1,14 @@
 import projectFactory from './project';
 import storageManager from './storage';
+import designer from './designer';
 
 const projectManager = () => {
   const projects = storageManager().load();
   let currentProject;
+
+  const addTodo = (elements) => {
+    currentProject.addTodo(elements);
+  };
 
   const getIndex = (name) => {
     for (let index = 0; index < projects.length; index += 1) {
@@ -20,19 +25,23 @@ const projectManager = () => {
       projects[index] = currentProject;
     }
     storageManager().save(projects);
+    designer().updateTodos(currentProject);
   };
 
-  const createProject = (name, description) => {
-    const obj = { name, description };
+  const createProject = (_name, _description, manager) => {
+    const todos = [];
+    const obj = { name: _name, description: _description, todos };
     currentProject = projectFactory(save, obj);
     projects.push(currentProject);
     storageManager().save(projects);
+    designer().updateCurrentProject(_name);
+    designer().updateProjects(manager);
     return currentProject;
   };
 
-  const addProject = (elements) => {
+  const addProject = (elements, manager) => {
     if (elements != null && getIndex(elements.name.value) === -1) {
-      createProject(elements.name.value, elements.description.name);
+      createProject(elements.name.value, elements.description.name, manager);
     } else {
       console.log('Error');
     }
@@ -42,14 +51,17 @@ const projectManager = () => {
     currentProject = {};
     const index = getIndex(name);
     currentProject = index !== -1 ? projectFactory(save, projects[index]) : createProject('default', null);
+    designer().updateCurrentProject(name);
     return currentProject;
   };
 
   const getProjects = () => projects;
 
   return {
-    addProject, createProject, currentProject, getProject, getProjects, save,
+    addProject, addTodo, createProject, currentProject, getProject, getProjects, save,
   };
 };
 
-export { projectManager as default };
+const projectManagerFactory = () => projectManager();
+
+export { projectManagerFactory as default };

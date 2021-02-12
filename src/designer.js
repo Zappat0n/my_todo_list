@@ -1,4 +1,4 @@
-const designer = () => {
+const designer = (manager = null) => {
   const addElement = (container, type, _textContent, classes) => {
     const element = document.createElement(type);
     if (_textContent != null) {
@@ -49,16 +49,28 @@ const designer = () => {
     form.appendChild(addButton());
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      callback(e.target.elements);
+      callback(e.target.elements, manager);
     });
 
     return form;
   };
 
+  const updateProjects = (manager) => {
+    const container = document.querySelector('.ul_projects');
+    container.innerHTML = '';
+    manager.getProjects().forEach(project => {
+      const li = designer().addElement(container, 'li', project.name, ['project']);
+      li.addEventListener('click', (e) => {
+        const currentProject = manager.getProject(e.target.textContent);
+        designer().updateTodos(currentProject);
+      });
+    });
+  };
+
   const updateTodos = (currentProject) => {
-    const rightSide = document.querySelector('.todos');
-    rightSide.innerHTML = '';
-    const ulTodo = designer().addElement(rightSide, 'ul');
+    const container = document.querySelector('.todos');
+    container.innerHTML = '';
+    const ulTodo = designer().addElement(container, 'ul');
     if (currentProject != null) {
       currentProject.todos.forEach(value => {
         addElement(ulTodo, 'li', value.title, ['todo']);
@@ -66,7 +78,14 @@ const designer = () => {
     }
   };
 
-  return { addElement, createForm, updateTodos };
+  const updateCurrentProject = (name) => {
+    const h3 = document.querySelector('.current_project');
+    h3.textContent = name;
+  };
+
+  return {
+    addElement, createForm, updateCurrentProject, updateProjects, updateTodos,
+  };
 };
 
 export { designer as default };
