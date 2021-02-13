@@ -1,8 +1,8 @@
-import projectFactory from './project';
-import storageManager from './storage';
-import designer from './designer';
+import projectFactory from '../models/project';
+import storageManager from '../db/storage';
+import designer from '../views/view_designer';
 
-const projectManager = () => {
+const projectController = () => {
   const projects = storageManager().load();
   let currentProject;
 
@@ -42,8 +42,6 @@ const projectManager = () => {
   const addProject = (elements, manager) => {
     if (elements != null && getIndex(elements.name.value) === -1) {
       createProject(elements.name.value, elements.description.name, manager);
-    } else {
-      console.log('Error');
     }
   };
 
@@ -62,6 +60,6 @@ const projectManager = () => {
   };
 };
 
-const projectManagerFactory = () => projectManager();
+const projectControllerFactory = () => projectController();
 
-export { projectManagerFactory as default };
+export { projectControllerFactory as default };

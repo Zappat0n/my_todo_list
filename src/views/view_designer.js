@@ -55,27 +55,27 @@ const designer = (manager = null) => {
     return form;
   };
 
-  const updateProjects = (manager) => {
-    const container = document.querySelector('.ul_projects');
-    container.innerHTML = '';
-    manager.getProjects().forEach(project => {
-      const li = designer().addElement(container, 'li', project.name, ['project']);
-      li.addEventListener('click', (e) => {
-        const currentProject = manager.getProject(e.target.textContent);
-        designer().updateTodos(currentProject);
-      });
-    });
-  };
-
   const updateTodos = (currentProject) => {
     const container = document.querySelector('.todos');
     container.innerHTML = '';
-    const ulTodo = designer().addElement(container, 'ul');
+    const ulTodo = addElement(container, 'ul');
     if (currentProject != null) {
       currentProject.todos.forEach(value => {
         addElement(ulTodo, 'li', value.title, ['todo']);
       });
     }
+  };
+
+  const updateProjects = (manager) => {
+    const container = document.querySelector('.ul_projects');
+    container.innerHTML = '';
+    manager.getProjects().forEach(project => {
+      const li = addElement(container, 'li', project.name, ['project']);
+      li.addEventListener('click', (e) => {
+        const currentProject = manager.getProject(e.target.textContent);
+        updateTodos(currentProject);
+      });
+    });
   };
 
   const updateCurrentProject = (name) => {
