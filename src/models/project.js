@@ -1,6 +1,8 @@
 import todo from './todo';
 
 const project = (save, name, description, todos = []) => {
+  const currentTodo = {};
+
   const addTodo = (elements) => {
     if (elements != null) {
       const t = todo(elements.title.value, elements.description.value, elements.date.value,
@@ -25,7 +27,7 @@ const project = (save, name, description, todos = []) => {
   };
 
   return {
-    name, description, getIndex, todos, addTodo, removeTodo,
+    name, currentTodo, description, getIndex, todos, addTodo, removeTodo,
   };
 };
 

@@ -1,3 +1,5 @@
+import todo from '../models/todo'
+
 const designer = (manager = null) => {
   const addElement = (container, type, _textContent, classes) => {
     const element = document.createElement(type);
@@ -63,13 +65,29 @@ const designer = (manager = null) => {
     }, 3000);
   }
 
+  const showTodo = (currentProject, title) => {
+    const index = currentProject.getIndex(title);
+    if (index != -1) {
+      currentProject.currentTodo = currentProject.todos[index];
+      const container = document.querySelector('.todo_container');
+      container.innerHTML = '';
+      addElement(container, 'p', currentProject.currentTodo.title);
+      addElement(container, 'p', currentProject.currentTodo.description);
+      addElement(container, 'p', currentProject.currentTodo.dueDate);
+      addElement(container, 'p', currentProject.currentTodo.priority);
+    }
+  }
+
   const updateTodos = (currentProject) => {
     const container = document.querySelector('.todos');
     container.innerHTML = '';
     const ulTodo = addElement(container, 'ul');
     if (currentProject != null) {
       currentProject.todos.forEach(value => {
-        addElement(ulTodo, 'li', value.title, ['todo']);
+        const element = addElement(ulTodo, 'li', value.title, ['todo']);
+        element.addEventListener('click', e => {
+          showTodo(currentProject, e.target.textContent);
+        })
       });
     }
   };

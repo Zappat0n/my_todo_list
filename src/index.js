@@ -18,10 +18,13 @@ designer().addElement(leftSide, 'div', null, ['new_project_warning']);
 designer().addElement(leftSide, 'ul', null, ['ul_projects']);
 designer().updateProjects(controller);
 
-const rightSide = designer().addElement(container, 'div', null, ['right_side']);
+const centerSide = designer().addElement(container, 'div', null, ['center_side']);
 controller.getProject('default');
-designer().createForm(rightSide, 'form_new_todo', 'form', fieldsForNewTodoForm, controller.addTodo);
-designer().addElement(rightSide, 'div', null, ['new_todo_warning']);
+designer().createForm(centerSide, 'form_new_todo', 'form', fieldsForNewTodoForm, controller.addTodo);
+designer().addElement(centerSide, 'div', null, ['new_todo_warning']);
 
-designer().addElement(rightSide, 'div', null, ['todos']);
+designer().addElement(centerSide, 'div', null, ['todos']);
 designer().updateTodos(controller.getProject('default'));
+
+const rightSide = designer().addElement(container, 'div', null, ['right_side']);
+designer().addElement(rightSide, 'div', null, ['todo_container']);
