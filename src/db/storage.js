@@ -9,11 +9,16 @@ const storageManager = () => {
     }
   };
 
-  const save = (storage) => {
-    localStorage.setItem('projects', JSON.stringify(storage));
+  const save = () => {
+    localStorage.setItem('projects', JSON.stringify(projects));
   };
 
-  return { load, save };
+  const projects = load();
+  let currentProject;
+
+  return { currentProject, load, projects, save };
 };
 
-export { storageManager as default };
+const storage = storageManager();
+
+export { storage as default };

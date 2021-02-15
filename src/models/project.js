@@ -1,15 +1,16 @@
 import todo from './todo';
 import designer from '../views/view_designer'
+import storage from '../db/storage'
 
 const project = (save, name, description, todos = []) => {
   const currentTodo = {};
 
-  const addTodo = (elements, currentProject) => {
+  const addTodo = (elements) => {
     if (elements != null) {
       const t = todo(elements.title.value, elements.description.value, elements.date.value,
         elements.priority.value);
       todos.push(t);
-      saveAndRefresh(currentProject);
+      saveAndRefresh();
     }
   };
 
@@ -17,10 +18,10 @@ const project = (save, name, description, todos = []) => {
     if (elements != null) {
       const t = todo(elements.title.value, elements.description.value, elements.date.value,
         elements.priority.value);
-        console.log(controller);
         if (getIndex(t.title, index) === -1) {
         todos[index] = t;
-        saveAndRefresh(controller.currentProject);
+        saveAndRefresh();
+        designer().showTodo(elements.title.value, controller);
       }
     }
   };
@@ -32,16 +33,16 @@ const project = (save, name, description, todos = []) => {
     return -1;
   };
 
-  const removeTodo = (index, currentProject) => {
+  const removeTodo = (index) => {
     if (index !== -1) {
       todos.splice(index, 1);
-      saveAndRefresh(currentProject);
+      saveAndRefresh();
     }
   };
 
-  const saveAndRefresh = (currentProject) => {
+  const saveAndRefresh = () => {
     save();
-    designer().updateTodos(currentProject);
+    designer().updateTodos(storage.currentProject);
     document.querySelector('.todo_container').innerHTML = '';
   }
 

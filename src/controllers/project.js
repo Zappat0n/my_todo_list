@@ -1,46 +1,43 @@
 import projectFactory from '../models/project';
-import storageManager from '../db/storage';
+import storage from '../db/storage';
 import designer from '../views/view_designer';
 
 const projectController = () => {
-  const projects = storageManager().load();
-  let currentProject;
-
   const addTodo = (elements) => {
-    if ( currentProject.getIndex(elements.title.value) === -1 ) {
-      currentProject.addTodo(elements, currentProject);
+    if ( storage.currentProject.getIndex(elements.title.value) === -1 ) {
+      storage.currentProject.addTodo(elements, storage.currentProject);
     } else {
       designer().displayError(document.querySelector('.new_todo_warning'), 'That Todo name already exists')
     }
   };
 
   const getIndex = (name) => {
-    for (let index = 0; index < projects.length; index += 1) {
-      if (name === projects[index].name) return index;
+    for (let index = 0; index < storage.projects.length; index += 1) {
+      if (name === storage.projects[index].name) return index;
     }
     return -1;
   };
 
   const save = () => {
-    const index = getIndex(currentProject.name);
+    const index = getIndex(storage.currentProject.name);
     if (index === -1) {
-      projects.push(currentProject);
+      storage.projects.push(storage.currentProject);
     } else {
-      projects[index] = currentProject;
+      storage.projects[index] = storage.currentProject;
     }
-    storageManager().save(projects);
-    designer().updateTodos(currentProject);
+    storage.save();
+    designer().updateTodos(storage.currentProject);
   };
 
   const createProject = (_name, _description, manager) => {
     const todos = [];
     const obj = { name: _name, description: _description, todos };
-    currentProject = projectFactory(save, obj);
-    projects.push(currentProject);
-    storageManager().save(projects);
+    storage.currentProject = projectFactory(save, obj);
+    storage.projects.push(storage.currentProject);
+    storage.save();
     designer().updateCurrentProject(_name);
     designer().updateProjects(manager);
-    return currentProject;
+    return storage.currentProject;
   };
 
   const addProject = (elements, manager) => {
@@ -52,20 +49,18 @@ const projectController = () => {
   };
 
   const getProject = (name) => {
-    currentProject = {};
+    storage.currentProject = {};
     const index = getIndex(name);
-    currentProject = index !== -1 ? projectFactory(save, projects[index]) : createProject('default', null);
+    storage.currentProject = index !== -1 ? projectFactory(save, storage.projects[index]) : createProject('default', null);
     designer().updateCurrentProject(name);
-    return currentProject;
+    return storage.currentProject;
   };
 
-  const getProjects = () => projects;
-
   return {
-    addProject, addTodo, createProject, currentProject, getProject, getProjects, save,
+    addProject, addTodo, createProject, getProject, save,
   };
 };
 
-const projectControllerFactory = () => projectController();
+const controller = projectController();
 
-export { projectControllerFactory as default };
+export { controller as default };
