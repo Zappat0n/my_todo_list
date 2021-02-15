@@ -4,18 +4,30 @@ import designer from '../views/view_designer'
 const project = (save, name, description, todos = []) => {
   const currentTodo = {};
 
-  const addTodo = (elements) => {
+  const addTodo = (elements, currentProject) => {
     if (elements != null) {
       const t = todo(elements.title.value, elements.description.value, elements.date.value,
         elements.priority.value);
       todos.push(t);
-      save();
+      saveAndRefresh(currentProject);
     }
   };
 
-  const getIndex = (title) => {
+  const editTodo = (elements, controller, index) => {
+    if (elements != null) {
+      const t = todo(elements.title.value, elements.description.value, elements.date.value,
+        elements.priority.value);
+        console.log(controller);
+        if (getIndex(t.title, index) === -1) {
+        todos[index] = t;
+        saveAndRefresh(controller.currentProject);
+      }
+    }
+  };
+
+  const getIndex = (title, removingThis) => {
     for (let index = 0; index < todos.length; index += 1) {
-      if (title === todos[index].title) return index;
+      if (title === todos[index].title && removingThis !== index) return index;
     }
     return -1;
   };
@@ -23,14 +35,18 @@ const project = (save, name, description, todos = []) => {
   const removeTodo = (index, currentProject) => {
     if (index !== -1) {
       todos.splice(index, 1);
-      save();
-      designer().updateTodos(currentProject);
-      document.querySelector('.todo_container').innerHTML = '';
+      saveAndRefresh(currentProject);
     }
   };
 
+  const saveAndRefresh = (currentProject) => {
+    save();
+    designer().updateTodos(currentProject);
+    document.querySelector('.todo_container').innerHTML = '';
+  }
+
   return {
-    name, currentTodo, description, getIndex, todos, addTodo, removeTodo,
+    name, currentTodo, description, editTodo, getIndex, todos, addTodo, removeTodo,
   };
 };
 

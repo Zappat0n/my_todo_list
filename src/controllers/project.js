@@ -8,7 +8,7 @@ const projectController = () => {
 
   const addTodo = (elements) => {
     if ( currentProject.getIndex(elements.title.value) === -1 ) {
-      currentProject.addTodo(elements);
+      currentProject.addTodo(elements, currentProject);
     } else {
       designer().displayError(document.querySelector('.new_todo_warning'), 'That Todo name already exists')
     }
