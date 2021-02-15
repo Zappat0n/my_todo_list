@@ -14,6 +14,15 @@ const designer = (manager = null) => {
     return element;
   };
 
+  const addTodoButton = (container, currentProject, text, callback, obj) => {
+    const button = document.createElement('button');
+    button.textContent = text;
+    button.addEventListener('click', e => {
+      callback(obj, currentProject);
+    })
+    container.appendChild(button);
+  }
+
   const createForm = (container, id, className, fields, callback) => {
     const addButton = () => {
       const button = document.createElement('input');
@@ -75,6 +84,7 @@ const designer = (manager = null) => {
       addElement(container, 'p', currentProject.currentTodo.description);
       addElement(container, 'p', currentProject.currentTodo.dueDate);
       addElement(container, 'p', currentProject.currentTodo.priority);
+      addTodoButton(container, currentProject, 'Remove', currentProject.removeTodo, index);
     }
   }
 

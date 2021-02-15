@@ -1,4 +1,5 @@
 import todo from './todo';
+import designer from '../views/view_designer'
 
 const project = (save, name, description, todos = []) => {
   const currentTodo = {};
@@ -19,10 +20,12 @@ const project = (save, name, description, todos = []) => {
     return -1;
   };
 
-  const removeTodo = (title) => {
-    const index = getIndex(title);
+  const removeTodo = (index, currentProject) => {
     if (index !== -1) {
       todos.splice(index, 1);
+      save();
+      designer().updateTodos(currentProject);
+      document.querySelector('.todo_container').innerHTML = '';
     }
   };
 
