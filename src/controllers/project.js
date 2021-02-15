@@ -7,7 +7,11 @@ const projectController = () => {
   let currentProject;
 
   const addTodo = (elements) => {
-    currentProject.addTodo(elements);
+    if ( currentProject.getIndex(elements.title.value) === -1 ) {
+      currentProject.addTodo(elements);
+    } else {
+      designer().displayError(document.querySelector('.new_todo_warning'), 'That Todo name already exists')
+    }
   };
 
   const getIndex = (name) => {
@@ -42,6 +46,8 @@ const projectController = () => {
   const addProject = (elements, manager) => {
     if (elements != null && getIndex(elements.name.value) === -1) {
       createProject(elements.name.value, elements.description.name, manager);
+    } else {
+      designer().displayError(document.querySelector('.new_project_warning'), 'That project name already exists')
     }
   };
 

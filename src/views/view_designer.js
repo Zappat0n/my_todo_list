@@ -55,6 +55,14 @@ const designer = (manager = null) => {
     return form;
   };
 
+  const displayError = (container, message) => {
+    container.innerHTML = '';
+    addElement(container, 'p', message, ['warning']);
+    setTimeout(function(){
+      container.innerHTML = '';
+    }, 3000);
+  }
+
   const updateTodos = (currentProject) => {
     const container = document.querySelector('.todos');
     container.innerHTML = '';
@@ -84,7 +92,7 @@ const designer = (manager = null) => {
   };
 
   return {
-    addElement, createForm, updateCurrentProject, updateProjects, updateTodos,
+    addElement, createForm, displayError, updateCurrentProject, updateProjects, updateTodos,
   };
 };
 

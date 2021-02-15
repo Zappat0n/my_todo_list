@@ -10,15 +10,22 @@ const project = (save, name, description, todos = []) => {
     }
   };
 
-  const removeTodo = (title, description, dueDate, priority) => {
-    const index = todos.indexOf(todo(title, description, dueDate, priority));
+  const getIndex = (title) => {
+    for (let index = 0; index < todos.length; index += 1) {
+      if (title === todos[index].title) return index;
+    }
+    return -1;
+  };
+
+  const removeTodo = (title) => {
+    const index = getIndex(title);
     if (index !== -1) {
       todos.splice(index, 1);
     }
   };
 
   return {
-    name, description, todos, addTodo, removeTodo,
+    name, description, getIndex, todos, addTodo, removeTodo,
   };
 };
 
