@@ -78,10 +78,10 @@ const designer = (controller = null) => {
       storage.currentProject.currentTodo = storage.currentProject.todos[index];
       const container = document.querySelector('.todo_container');
       container.innerHTML = '';
-      addElement(container, 'p', storage.currentProject.currentTodo.title);
-      addElement(container, 'p', storage.currentProject.currentTodo.description);
-      addElement(container, 'p', storage.currentProject.currentTodo.dueDate);
-      addElement(container, 'p', storage.currentProject.currentTodo.priority);
+      addElement(container, 'p', 'Title:   ' + storage.currentProject.currentTodo.title);
+      addElement(container, 'p', 'Description: ' + storage.currentProject.currentTodo.description);
+      addElement(container, 'p', 'Date: ' + storage.currentProject.currentTodo.dueDate);
+      addElement(container, 'p', 'Priority: ' + storage.currentProject.currentTodo.priority);
       const bRemove = addElement(container, 'button', 'Remove');
       const bEdit = addElement(container, 'button', 'Edit');
       bRemove.addEventListener( 'click', e => {
