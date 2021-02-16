@@ -1,20 +1,20 @@
 [](https://img.shields.io/badge/Microverse-blueviolet)
 
-## Week 2
 
-# Project 2 :  Building with Responsive Design
-
-> This Project consists of making a clone of a .
-
-![screenshot](./assets/imgs/screenshot.png)
+### JavaScript :  Project Todo List
 
 You can find the original project specification at: 
 
+[The Odin Project](https://www.theodinproject.com/courses/javascript/lessons/todo-list)
+
 ## Built With
 
-- HTML
-- CSS
-- VScode & Atom as code editors
+- Javascript
+- Npm
+- Webpack
+- Eslint
+- Webhint
+- VScode
 
 ## Live Demo 
 
@@ -26,12 +26,6 @@ You can find the original project specification at:
 
 - GitHub: [@Zappat0n](https://github.com/Zappat0n)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/angel-luis-barros-pazos-8889011b5/)
-
-👤 **XXX**
-
-- GitHub: [@od-c0d3r]()
-- Twitter: [@od_coder]()
-- LinkedIn: [LinkedIn]()
 
 ## 🤝 Contributing
 
