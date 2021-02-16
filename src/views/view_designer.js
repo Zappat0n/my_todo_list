@@ -59,6 +59,7 @@ const designer = (controller = null) => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       callback(e.target.elements, controller, index);
+      form.classList.add('d-none');
     });
     return form;
   };
