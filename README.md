@@ -18,7 +18,7 @@ You can find the original project specification at:
 
 ## Live Demo 
 
-[Live Demo Link]()
+[Live Demo Link](https://zappat0n.github.io/my_todo_list/)
 
 ## Authors
 
