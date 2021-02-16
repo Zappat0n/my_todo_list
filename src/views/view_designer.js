@@ -1,6 +1,5 @@
-import todo from '../models/todo'
-import { fieldsForNewTodoForm } from './design_data'
-import storage from '../db/storage'
+import { fieldsForNewTodoForm } from './design_data';
+import storage from '../db/storage';
 
 const designer = (controller = null) => {
   const addElement = (container, type, _textContent, classes) => {
@@ -51,7 +50,7 @@ const designer = (controller = null) => {
     form.classList.add(className);
     let i = 0;
     fields.forEach(element => {
-      let value = values != null ? values[i] : null;
+      const value = values != null ? values[i] : null;
       const field = addField(element.field, element.text, element.type, element.required, value);
       form.appendChild(field);
       i += 1;
@@ -67,33 +66,33 @@ const designer = (controller = null) => {
   const displayError = (container, message) => {
     container.innerHTML = '';
     addElement(container, 'p', message, ['warning']);
-    setTimeout(function(){
+    setTimeout(() => {
       container.innerHTML = '';
     }, 3000);
-  }
+  };
 
   const showTodo = (title, controller) => {
     const index = storage.currentProject.getIndex(title);
-    if (index != -1) {
+    if (index !== -1) {
       storage.currentProject.currentTodo = storage.currentProject.todos[index];
       const container = document.querySelector('.todo_container');
       container.innerHTML = '';
-      addElement(container, 'p', 'Title:   ' + storage.currentProject.currentTodo.title);
-      addElement(container, 'p', 'Description: ' + storage.currentProject.currentTodo.description);
-      addElement(container, 'p', 'Date: ' + storage.currentProject.currentTodo.dueDate);
-      addElement(container, 'p', 'Priority: ' + storage.currentProject.currentTodo.priority);
+      addElement(container, 'p', `Title:   ${storage.currentProject.currentTodo.title}`);
+      addElement(container, 'p', `Description: ${storage.currentProject.currentTodo.description}`);
+      addElement(container, 'p', `Date: ${storage.currentProject.currentTodo.dueDate}`);
+      addElement(container, 'p', `Priority: ${storage.currentProject.currentTodo.priority}`);
       const bRemove = addElement(container, 'button', 'Remove');
       const bEdit = addElement(container, 'button', 'Edit');
-      bRemove.addEventListener( 'click', e => {
+      bRemove.addEventListener('click', () => {
         storage.currentProject.removeTodo(index);
         document.querySelector('.todo_container').innerHTML = '';
       });
-      bEdit.addEventListener( 'click', e => {
+      bEdit.addEventListener('click', () => {
         container.innerHTML = '';
         designer(controller).createForm(container, 'form_edit_todo', 'form', fieldsForNewTodoForm, storage.currentProject.editTodo, [storage.currentProject.currentTodo.title, storage.currentProject.currentTodo.description, storage.currentProject.currentTodo.dueDate, storage.currentProject.currentTodo.priority], index);
       });
     }
-  }
+  };
 
   const updateTodos = (controller) => {
     const container = document.querySelector('.todos');
@@ -104,7 +103,7 @@ const designer = (controller = null) => {
         const element = addElement(ulTodo, 'li', value.title, ['todo']);
         element.addEventListener('click', e => {
           showTodo(e.target.textContent, controller);
-        })
+        });
       });
     }
   };
@@ -128,7 +127,13 @@ const designer = (controller = null) => {
   };
 
   return {
-    addElement, createForm, displayError, showTodo, updateCurrentProject, updateProjects, updateTodos,
+    addElement,
+    createForm,
+    displayError,
+    showTodo,
+    updateCurrentProject,
+    updateProjects,
+    updateTodos,
   };
 };
 

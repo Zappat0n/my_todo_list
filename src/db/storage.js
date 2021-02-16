@@ -9,14 +9,16 @@ const storageManager = () => {
     }
   };
 
+  const projects = load();
+  let currentProject;
+
   const save = () => {
     localStorage.setItem('projects', JSON.stringify(projects));
   };
 
-  const projects = load();
-  let currentProject;
-
-  return { currentProject, load, projects, save };
+  return {
+    currentProject, load, projects, save,
+  };
 };
 
 const storage = storageManager();

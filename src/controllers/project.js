@@ -4,10 +4,10 @@ import designer from '../views/view_designer';
 
 const projectController = () => {
   const addTodo = (elements) => {
-    if ( storage.currentProject.getIndex(elements.title.value) === -1 ) {
+    if (storage.currentProject.getIndex(elements.title.value) === -1) {
       storage.currentProject.addTodo(elements, storage.currentProject);
     } else {
-      designer().displayError(document.querySelector('.new_todo_warning'), 'That Todo name already exists')
+      designer().displayError(document.querySelector('.new_todo_warning'), 'That Todo name already exists');
     }
   };
 
@@ -44,7 +44,7 @@ const projectController = () => {
     if (elements != null && getIndex(elements.name.value) === -1) {
       createProject(elements.name.value, elements.description.name, manager);
     } else {
-      designer().displayError(document.querySelector('.new_project_warning'), 'That project name already exists')
+      designer().displayError(document.querySelector('.new_project_warning'), 'That project name already exists');
     }
   };
 

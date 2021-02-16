@@ -4,7 +4,6 @@
 $font-family:'Ranchers', cursive;
 $font-family2: 'Truculenta', sans-serif;
 
-
 h1 {
   font: normal normal 500 3rem/3rem $font-family;
   text-align: center;
@@ -45,7 +44,7 @@ ul {
     text-align: center;
   }
 
-  li:hoover {
+  li:hover {
     background: black;
     color: white;
   }
@@ -65,7 +64,7 @@ button {
 }
 
 form {
-  width:60%;
+  width: 60%;
   margin: auto;
   padding: 1rem;
   border: 1px solid lightgray;
@@ -73,6 +72,7 @@ form {
 
   .form_field {
     padding: 0.25rem;
+
     input {
       width: 90%;
     }
